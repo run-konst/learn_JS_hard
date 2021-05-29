@@ -2,8 +2,7 @@
 let num = 266219;
 let numArr = [];
 
-num = num.toString();
-num = num.split('');
+num = num.toString().split('');
 
 num.forEach(element => {
     let i = parseInt(element, 10);
@@ -16,5 +15,4 @@ for (let i = 0; i < numArr.length - 1; i++) {
 }
 console.log(result);
 
-let cube = result**3;
-console.log(cube.toString().substring(0, 2));
+console.log((result**3).toString().substring(0, 2));
