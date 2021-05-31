@@ -1,18 +1,42 @@
 'use strict';
-let num = 266219;
-let numArr = [];
 
-num = num.toString().split('');
+// 1 задание
 
-num.forEach(element => {
-    let i = parseInt(element, 10);
-    numArr.push(i);
+const langForm = document.querySelector('.lang-form');
+const ifOutput = document.querySelector('.if-output');
+const switchCaseOutput = document.querySelector('.switch-case-output');
+const arrayOutput = document.querySelector('.array-output');
+let days = new Map([
+    ['ru', ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье']],
+    ['en', ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']]
+]);
+
+langForm.addEventListener('submit', function(evt) {
+    evt.preventDefault();
+    const lang = document.querySelector('input[name="lang"]:checked').value;
+    console.log(lang);
+
+    if (lang === 'ru') {
+        ifOutput.textContent = 'Понедельник, Вторник, Среда, Четверг, Пятница, Суббота, Воскресенье';        
+    } else {
+        ifOutput.textContent = 'Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday';  
+    }
+
+    switch (lang) {
+        case 'ru':
+            switchCaseOutput.textContent = 'Понедельник, Вторник, Среда, Четверг, Пятница, Суббота, Воскресенье';            
+            break;
+    
+        case 'en':
+            switchCaseOutput.textContent = 'Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday';
+            break;
+    }
+    arrayOutput.textContent = days.get(lang);
 });
 
-let result = numArr[0];
-for (let i = 0; i < numArr.length - 1; i++) {
-    result *= numArr[i + 1];
-}
-console.log(result);
+// 2 задание
 
-console.log((result**3).toString().substring(0, 2));
+const namePerson = 'Вася';
+
+let result = (namePerson === 'Артем') ? 'директор' : (namePerson === 'Максим') ? 'преподаватель' : 'студент';
+console.log(`${namePerson} - ${result}`);
