@@ -10,7 +10,7 @@ const lang = prompt('Введите язык (ru или en)');
 
 if (lang === 'ru') {
     console.log(days.get('ru'));
-} else {
+} else if (lang === 'en') {
     console.log(days.get('en'));
 }
 
