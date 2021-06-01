@@ -1,33 +1,16 @@
 'use strict';
 
-// 1 задание
+const foo = function (str) {
+    if (typeof str !== 'string') {
+        console.log('Not a string');
+    } else {
+        let trimedStr = str.trim();
+        if (trimedStr.length > 30) {
+            console.log(trimedStr.substring(0, 30).trim() + '...');            
+        } else {
+            console.log(trimedStr);
+        }
+    }
+};
 
-const days = new Map([
-    ['ru', ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье']],
-    ['en', ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']]
-]);
-const lang = prompt('Введите язык (ru или en)');
-
-if (lang === 'ru') {
-    console.log(days.get('ru'));
-} else if (lang === 'en') {
-    console.log(days.get('en'));
-}
-
-switch (lang) {
-    case 'ru':
-        console.log(days.get('ru'));          
-        break;
-
-    case 'en':
-        console.log(days.get('en'));
-        break;
-}
-console.log(days.get(lang));
-
-// 2 задание
-
-const namePerson = 'Вася';
-
-let result = (namePerson === 'Артем') ? 'директор' : (namePerson === 'Максим') ? 'преподаватель' : 'студент';
-console.log(`${namePerson} - ${result}`);
+foo('         asdasd   asd sdklasdjkh asdjk ldhajksdh sajkdhjkd ahdkjads asd    ');
