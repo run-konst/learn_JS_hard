@@ -1,22 +1,26 @@
 'use strict';
 
-const isNumber = function (n) {
-    return !isNaN(parseFloat(n)) && isFinite(n);
-};
+// 1 задание
 
-const foo = function (str) {
-    if (isNumber(str)) {
-        console.log(`It's a number ${str}`);                
-    } else if (typeof str !== 'string') {
-        console.log('Not a string or number');
-    } else {
-        let trimedStr = str.trim();
-        if (trimedStr.length > 30) {
-            console.log(trimedStr.substring(0, 30).trim() + '...');            
-        } else {
-            console.log(trimedStr);
+const arr = ['2345', '1234', '2315', '12354', '4567', '5467456', '46768'];
+
+for (let i = 0; i < arr.length; i++) {
+    const num = arr[i].split('');
+    if (num[0] === '2' || num[0] === '4') {
+        console.log(arr[i]);          
+    }  
+}
+
+// 2 задание
+
+for (let i = 1; i <= 100; i++) {
+    let k = 0;
+    for (let j = 1; j <= i; j++) {
+        if ((i % j) === 0) {
+            k++;
         }
     }
-};
-
-foo('asdasd asd ads dda dsada dadss ad as dsa ddas dasd asd asd da  a   ');
+    if (k === 2) {
+        console.log(`Число ${i} - простое, делители 1 и ${i}`);        
+    }  
+}
