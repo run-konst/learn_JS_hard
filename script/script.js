@@ -24,7 +24,7 @@ const playGame = function () {
         if (playerNum === null) {
             return;
         }
-        while (!isNumber(playerNum) || playerNum > 100 || playerNum < 0) {
+        while (!isNumber(playerNum) || playerNum > 100 || playerNum < 1) {
             alert('Введи число от 1 до 100!');
             playerNum = prompt('Угадай число от 1 до 100');
             if (playerNum === null) {
