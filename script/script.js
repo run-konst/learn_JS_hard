@@ -1,34 +1,54 @@
 'use strict';
 
-// 1 задание
+const isNumber = function (n) {
+    return !isNaN(parseFloat(n)) && isFinite(n);
+};
 
-const arr = ['2345', '1234', '2315', '12354', '4567', '5467456', '46768'];
-
-const filtered = arr.filter(
-    function checkElement( num ) {
-      return num.split('')[0] === '2' || num.split('')[0] === '4';
-    }
-);
-
-console.log(filtered);
-
-for (let i = 0; i < arr.length; i++) {
-    const num = arr[i].split('');
-    if (num[0] === '2' || num[0] === '4') {
-        console.log(arr[i]);          
-    }  
-}
-
-// 2 задание
-
-for (let i = 1; i <= 100; i++) {
-    let k = 0;
-    for (let j = 1; j <= i; j++) {
-        if ((i % j) === 0) {
-            k++;
+const playGame = function () {
+    let gameNum = Math.ceil(Math.random()*100);
+    let counter = 10;
+    const gameStart = function () {
+        const newGame = function () {
+            counter = 10;
+            gameNum = Math.ceil(Math.random()*100);
+            gameStart();      
+        };
+        if (counter === 0) {
+            if (confirm('Попытки закончились, хотите сыграть еще?')) {
+                newGame();
+            } else {
+                return;
+            }            
         }
-    }
-    if (k === 2) {
-        console.log(`Число ${i} - простое, делители 1 и ${i}`);        
-    }  
-}
+        let playerNum = prompt('Угадай число от 1 до 100');
+        if (playerNum === null) {
+            return;
+        }
+        while (!isNumber(playerNum) || playerNum > 100 || playerNum < 0) {
+            alert('Введи число от 1 до 100!');
+            playerNum = prompt('Угадай число от 1 до 100');
+            if (playerNum === null) {
+                return;
+            }
+        }
+        playerNum = Number(playerNum);
+        if (playerNum === gameNum) {
+            if (confirm('Поздравляю, Вы угадали!!! Хотели бы сыграть еще?')) {
+                newGame();
+            } else {
+                return;
+            }            
+        } else if (playerNum > gameNum) {
+            counter--;
+            alert('Загаданное число меньше, осталось попыток ' + counter);
+            gameStart(); 
+        } else if (playerNum < gameNum) {
+            counter--;
+            alert('Загаданное число больше, осталось попыток ' + counter);
+            gameStart();  
+        }
+    };
+    gameStart();
+};
+
+playGame();
