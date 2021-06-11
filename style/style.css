@@ -1,9 +1,6 @@
-.container {
-    max-width: 1200px;
+button {
+    padding: 20px;
+    display: block;
     margin: 0 auto;
-    padding: 0 50px;
-}
-
-.lang-form {
-    margin: 50px auto;
+    margin-top: 30vh;
 }
