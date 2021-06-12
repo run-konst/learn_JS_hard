@@ -1,0 +1,17 @@
+.container {
+    max-width: 800px;
+    padding: 50px;
+    margin: 0 auto;
+}
+
+.btn {
+    padding: 10px;
+}
+
+li {
+    padding: 5px;
+}
+
+.delete-btn {
+    margin-left: 10px;
+}
