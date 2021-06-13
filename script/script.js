@@ -72,14 +72,19 @@ regBtn.addEventListener('click', function () {
 
 authBtn.addEventListener('click', function () {
     const login = prompt('Введите логин');
-    const password = prompt('Введите пароль');
     let logged = false;
     for (let i = 0; i < users.length; i++) {
         const user = users[i];
-        if (user.login === login && user.password === password) {
-            username.textContent = user.name;
-            localStorage.setItem('username', user.name);
-            logged = true;
+        if (user.login === login) {
+            const password = prompt('Введите пароль');
+            if (user.password === password) {
+                username.textContent = user.name;
+                localStorage.setItem('username', user.name);
+                logged = true;               
+            } else {
+                alert('Пароль не верен');
+                return;
+            }
         }
     }
     if (logged === false) {
@@ -87,5 +92,9 @@ authBtn.addEventListener('click', function () {
     }
 });
 
-username.textContent = localStorage.getItem('username');
+if (localStorage.getItem('username')) {
+    username.textContent = localStorage.getItem('username');
+} else {
+    username.textContent = 'Юзер';
+}
 render();
