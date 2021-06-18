@@ -4,14 +4,7 @@
     margin: 0 auto;
 }
 
-.btn {
-    padding: 10px;
-}
-
-li {
-    padding: 5px;
-}
-
-.delete-btn {
-    margin-left: 10px;
+p {
+    padding: 3px;
+    border: 2px solid green;
 }
