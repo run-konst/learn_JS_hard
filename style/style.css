@@ -1,10 +1,29 @@
 .container {
-    max-width: 800px;
+    position: relative;
+    max-width: 500px;
     padding: 50px;
     margin: 0 auto;
 }
 
-p {
-    padding: 3px;
-    border: 2px solid green;
+.square {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100px;
+    height: 100px;
+    background-color: red;
+}
+
+.circle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: green;
+}
+
+.btns {
+    float: right;
 }
