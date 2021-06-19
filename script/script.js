@@ -1,42 +1,34 @@
 'use strict';
 
-let 
-    count = 0,
-    animationFrame,
-    animation = false;
-
 const
-    square = document.querySelector('.square'),
-    circle = document.querySelector('.circle'),
-    start = document.querySelector('.start-btn'),
-    reset = document.querySelector('.reset-btn'),
-    animate = () => {
-        animationFrame = requestAnimationFrame(animate);
-        count++;
-        if (count < 100) {
-            square.style.top = count*2 + 'px';
-        }
-        if (count < 200) {
-            circle.style.top = count*2 + 'px';
-        } else {
-            cancelAnimationFrame(animationFrame);
+    sumBtn = document.querySelector('#sum'),
+    multBtn = document.querySelector('#mult'),
+    res = document.querySelector('#res'),
+    calculator = {
+        a: 0,
+        b: 0,
+        c: 0,
+        getValues() {
+            this.a = +document.querySelector('#a').value;
+            this.b = +document.querySelector('#b').value;
+        },
+        sum() {
+            this.getValues();
+            this.c =  this.a + this.b;
+            this.show();
+        },
+        mult() {
+            this.getValues();
+            this.c = this.a * this.b;
+            this.show();
+        },
+        show() {
+            res.value = this.c;
+        },
+        eventListeners() {
+            sumBtn.addEventListener('click', this.sum.bind(this));
+            multBtn.addEventListener('click', this.mult.bind(this));
         }
     };
 
-start.addEventListener('click', () => {
-    if (animation) {
-        cancelAnimationFrame(animationFrame);
-        animation = false;     
-    } else {
-        animationFrame = requestAnimationFrame(animate);
-        animation = true; 
-    }
-});
-
-reset.addEventListener('click', () => {
-    cancelAnimationFrame(animationFrame);
-    count = 0;
-    square.style.top = 0;
-    circle.style.top = 0;
-    animation = false;    
-});
+calculator.eventListeners();
