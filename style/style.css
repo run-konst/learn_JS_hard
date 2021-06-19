@@ -33,3 +33,10 @@ input{
     margin: 10px 0;
 }
   
+#city{
+    display: none;
+}
+
+.result{
+    margin: 15px 0;
+}

@@ -32,3 +32,38 @@ const
     };
 
 calculator.eventListeners();
+
+const cityArr = {
+    rus: ['Москва', 'Санк-Петербург', 'Новосибирск', 'Екатеринбург', 'Нижний Новгород', 'Казань', 'Челябинск'],
+    uk: ['Киев', 'Харьков', 'Одесса', 'Днепр', 'Донецк', 'Запорожье', 'Львов'],
+    bel: ['Минск', 'Гомель', 'Могилёв', 'Витебск', 'Гродно', 'Брест'],
+    jap: ['Токио', 'Киото', 'Осака', 'Иокогама'] 
+};
+
+const 
+    countrySelect = document.querySelector('#country'),
+    citySelect = document.querySelector('#city'),
+    result = document.querySelector('.result'),
+    countryOptions = countrySelect.querySelectorAll('option'),
+    countryArr = {};
+
+countryOptions.forEach(item => {
+    countryArr[item.value] = item.textContent;
+});
+
+countrySelect.addEventListener('change', () => {
+    citySelect.style.display = 'inline-block';
+    citySelect.textContent = '';
+    const country = countrySelect.value;
+    const cities = cityArr[country];
+    cities.forEach(item => {
+        const city = document.createElement('option');
+        city.value = item;
+        city.textContent = item;
+        citySelect.append(city);
+    });
+});
+
+citySelect.addEventListener('change', () => {
+    result.textContent = `${countryArr[countrySelect.value]}, ${citySelect.value}`;
+});
