@@ -6,23 +6,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <style>
-
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<select id="cars">
-    <option value="no">Выберите тачку</option>
-    <option value="bmw">bmw</option>
-    <option value="volvo">volvo</option>
-</select>
+    <div class="container">
+        <section>
+            <input type="text" class="val-input">
+            <select class="rub-to-val-select">
+                <option value="USD">Доллар США (USD)</option>
+                <option value="EUR">Евро (EUR)</option>
+            </select>
+            <input type="text" class="rub-result" disabled>
+            <span>Российский рубль (RUB)</span>
+            <button class="val-btn">Конвертировать</button>
+        </section>
+        <section>
+            <input type="text" class="rub-input">
+            <span>Российский рубль (RUB)</span>
+            <input type="text" class="val-result" disabled>
+            <select class="val-to-rub-select">
+                <option value="USD">Доллар США (USD)</option>
+                <option value="EUR">Евро (EUR)</option>
+            </select>
+            <button class="rub-btn">Конвертировать</button>
+        </section>
 
-<div id="output">
-    выбери тачку
-</div>
-
+    </div>
 
 <script src="script.js"></script>
 </body>
