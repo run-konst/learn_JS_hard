@@ -1,7 +1,31 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+    let countries = [];
+    const main = document.querySelector('.main');
+
+    async function getData() {
+        const response = await fetch('db_cities.json');
+        if (response.status !== 200) {
+            throw new Error('Network status is not 200');
+        }
+        const data = await response.json();
+        main.insertAdjacentHTML('afterbegin', `
+            <div class="wait">
+                    <div class="sk-rect sk-rect-1"></div>
+                    <div class="sk-rect sk-rect-2"></div>
+                    <div class="sk-rect sk-rect-3"></div>
+                    <div class="sk-rect sk-rect-4"></div>
+                    <div class="sk-rect sk-rect-5"></div>
+                </div>
+            </div>
+        `);
+        await new Promise((resolve, reject) => setTimeout(resolve, 2000));
+        const wait = document.querySelector('.wait');
+        wait.remove();
+        return data.RU;
+    }
+
     const
-        countries = data.RU,
         input = document.getElementById('select-cities'),
         closeBtn = document.querySelector('.close-button'),
         hrefBtn = document.querySelector('.button'),
@@ -93,8 +117,13 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         };
 
-    countries.forEach(country => country.cities.sort(sortCities));
-    countries.forEach(country => createList(listDefault, country, 3));
+    getData()
+        .then(data => {
+            countries = data;
+            countries.forEach(country => country.cities.sort(sortCities));
+            countries.forEach(country => createList(listDefault, country, 3));
+        });
+
 
     input.addEventListener('click', clickInput);
     input.addEventListener('input', createListAutocomplete);
