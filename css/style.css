@@ -224,7 +224,7 @@ body .main .input-cities label {
 }
 
 .dropdown-lists__list {
-  width: 100%;
+  flex: 100% 0 0;
   transition: transform 1s ease;
 }
 

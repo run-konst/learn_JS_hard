@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         initDefaults = () => {
             listDefault.style.display = 'block';
-            listSelect.style.display = 'none';
+            listDefault.style.transform = 'translateX(0)';
             listAutocomplete.style.display = 'none';
             input.value = '';
             closeBtn.style.display = 'none';
@@ -95,9 +95,41 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         initListSelect = () => {
             listSelect.style.display = 'block';
-            listDefault.style.display = 'none';
+            listSelect.style.transform = 'translateX(100%)';
+            setTimeout(() => { listSelect.style.transform = 'translateX(0px)'; }, 0);
+            listDefault.style.transform = 'translateX(0px)';
+            setTimeout(() => { listDefault.style.transform = 'translateX(-100%)'; }, 0);
+            setTimeout(() => { listDefault.style.display = 'none'; }, 1000);
             listAutocomplete.style.display = 'none';
             listSelect.querySelector('.dropdown-lists__col').textContent = '';
+        },
+        animateDefaults = () => {
+            listDefault.style.transition = 'transform 1s ease';
+            listDefault.style.order = '2';
+            listDefault.style.transform = 'translateX(0)';
+            setTimeout(() => { listDefault.style.transform = 'translateX(-100%)'; }, 0);
+            listSelect.style.order = '1';
+            listSelect.style.transform = 'translateX(0px)';
+            setTimeout(() => { listSelect.style.transform = 'translateX(-100%)'; }, 0);
+            setTimeout(() => {
+                listSelect.style.display = 'none';
+                listDefault.style.transition = 'none';
+                listDefault.style.transform = 'translateX(0px)';
+            }, 1000);
+        },
+        animateSelect = () => {
+            listSelect.style.transition = 'transform 1s ease';
+            listDefault.style.order = '1';
+            listDefault.style.transform = 'translateX(0)';
+            setTimeout(() => { listDefault.style.transform = 'translateX(-100%)'; }, 0);
+            listSelect.style.order = '2';
+            listSelect.style.transform = 'translateX(0px)';
+            setTimeout(() => { listSelect.style.transform = 'translateX(-100%)'; }, 0);
+            setTimeout(() => {
+                listDefault.style.display = 'none';
+                listSelect.style.transition = 'none';
+                listSelect.style.transform = 'translateX(0px)';
+            }, 1000);
         },
         initListAutocomplete = () => {
             listDefault.style.display = 'none';
@@ -189,6 +221,7 @@ document.addEventListener('DOMContentLoaded', () => {
             input.value = countryName;
             closeBtn.style.display = 'block';
             initListSelect();
+            animateSelect();
             let country;
             countries.forEach(elem => {
                 if (elem.country === countryName) {
@@ -197,7 +230,10 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             createList(listSelect, country);
         }
-        if (targetCountry && targetListSelect) initDefaults();
+        if (targetCountry && targetListSelect) {
+            initDefaults();
+            animateDefaults();
+        }
         if (targetCity) {
             const cityName = targetCity.querySelector('.dropdown-lists__city').textContent;
             input.value = cityName;
