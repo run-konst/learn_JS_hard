@@ -213,6 +213,7 @@ body .main .input-cities label {
   background: #fff;
   max-height: 300px;
   overflow: auto;
+  overflow-x: hidden;
 }
 
 .dropdown-lists {
@@ -224,6 +225,7 @@ body .main .input-cities label {
 
 .dropdown-lists__list {
   width: 100%;
+  transition: transform 1s ease;
 }
 
 .dropdown-lists__list--default {

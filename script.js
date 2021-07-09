@@ -1,9 +1,45 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    let countries = [];
+    let
+        countries = JSON.parse(localStorage.getItem('countries')),
+        locale;
     const main = document.querySelector('.main');
+    const locales = {
+        RU: 'Россия',
+        DE: 'Deutschland',
+        EN: 'United Kingdom',
+    };
+
+    const getLocale = () => {
+        if (document.cookie) {
+            const arr = document.cookie.split('=');
+            locale = arr[1];
+            return;
+        }
+        localStorage.clear();
+        const locales = new Set(["EN", "RU", "DE"]);
+        locale = prompt('Choose your language (EN, RU, DE)');
+        if (locale) {
+            locale = locale.toUpperCase();
+        }
+        while (!locales.has(locale)) {
+            locale = prompt('Choose your language (EN, RU, DE)');
+            if (locale) {
+                locale = locale.toUpperCase();
+            }
+        }
+        document.cookie = `locale=${locale}; max-age=36000`;
+    };
 
     async function getData() {
+        getLocale();
+        await new Promise((resolve, reject) => {
+            if (localStorage.length) {
+                reject();
+            } else {
+                resolve();
+            }
+        });
         const response = await fetch('db_cities.json');
         if (response.status !== 200) {
             throw new Error('Network status is not 200');
@@ -11,6 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const data = await response.json();
         main.insertAdjacentHTML('afterbegin', `
             <div class="wait">
+                <div class="sk-wave">
                     <div class="sk-rect sk-rect-1"></div>
                     <div class="sk-rect sk-rect-2"></div>
                     <div class="sk-rect sk-rect-3"></div>
@@ -19,10 +56,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             </div>
         `);
-        await new Promise((resolve, reject) => setTimeout(resolve, 2000));
+        await new Promise((resolve, reject) => setTimeout(resolve, 3000));
         const wait = document.querySelector('.wait');
         wait.remove();
-        return data.RU;
+        return data[locale];
     }
 
     const
@@ -33,6 +70,12 @@ document.addEventListener('DOMContentLoaded', () => {
         listSelect = document.querySelector('.dropdown-lists__list--select'),
         listAutocomplete = document.querySelector('.dropdown-lists__list--autocomplete'),
         autocompleteCitiesBlock = listAutocomplete.querySelector('.dropdown-lists__countryBlock'),
+        sortCountries = (a, b) => {
+            if (a.country === locales[locale]) {
+                return -1;
+            }
+            return 0;
+        },
         sortCities = (a, b) => {
             if (+a.count < +b.count) {
                 return 1;
@@ -51,9 +94,9 @@ document.addEventListener('DOMContentLoaded', () => {
             hrefBtn.href = '#';
         },
         initListSelect = () => {
+            listSelect.style.display = 'block';
             listDefault.style.display = 'none';
             listAutocomplete.style.display = 'none';
-            listSelect.style.display = 'block';
             listSelect.querySelector('.dropdown-lists__col').textContent = '';
         },
         initListAutocomplete = () => {
@@ -120,10 +163,16 @@ document.addEventListener('DOMContentLoaded', () => {
     getData()
         .then(data => {
             countries = data;
+            localStorage.setItem('countries', JSON.stringify(countries));
+            countries.sort(sortCountries);
+            countries.forEach(country => country.cities.sort(sortCities));
+            countries.forEach(country => createList(listDefault, country, 3));
+        })
+        .catch(() => {
+            countries.sort(sortCountries);
             countries.forEach(country => country.cities.sort(sortCities));
             countries.forEach(country => createList(listDefault, country, 3));
         });
-
 
     input.addEventListener('click', clickInput);
     input.addEventListener('input', createListAutocomplete);
